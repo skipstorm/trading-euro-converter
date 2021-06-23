@@ -2,6 +2,7 @@
   $(document).ready(function(){
     
     var datiUtente;
+    var letters = 'ancdefghijklmnopqrstuvwxyz'.split('');
     
     $('#datiUtente').on('change', function(){
       makeUserPreview();
@@ -15,7 +16,7 @@
       '<table class="table table-striped">';
       table += '<thead><tr>';
       for(let i in datiUtente[0]){
-         table += '<th>col. '+i+' <input type="checkbox" name="datiUtenteCol['+i+']"></th>';
+         table += '<th>col. '+letters[i]+' <input type="checkbox" name="datiUtenteCol['+i+']"></th>';
       }
       table += '</tr></thead>';
       for(let d of datiUtente) {
