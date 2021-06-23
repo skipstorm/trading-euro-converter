@@ -4,7 +4,7 @@
     var datiUtente;
     
     $('#datiUtente').on('change', function(){
-      
+      makeUserPreview();
     });
     
     function makeUserPreview() {
