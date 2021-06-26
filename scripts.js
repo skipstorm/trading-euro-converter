@@ -5,6 +5,7 @@
         'usd_cols': [4,5]
       }
     }
+    
     var conf = configs['etoro'];
     var conversionFiles = ['quot/2020.csv'];
     var conversionData = {};
@@ -12,23 +13,42 @@
     var letters = 'ancdefghijklmnopqrstuvwxyz'.split('');
     
     getConversions();
+    initPage();
     
     $('#datiUtente').on('change', function(){
       makeUserPreview();
     });
+    $('#preset').on('change', function(){
+      initPage();
+    });
+    
+    function initPage(){
+      const preset = $('#preset').val();
+      conf = configs.hasOwnProperty(preset)? configs[preset] : false;
+      makeUserPreview();
+    }
     
     function makeUserPreview() {
       var size = parseInt($('#datiUtenteN').val());
       datiUtente = $('#datiUtente').val().split("\n").map(function(line){ return line.split("\t").slice(0, size)});
       $('.datiUtentePreview').empty();
-      var table = '<div>Seleziona le colonne per le quali vuoi applicare la conversione da dollaro a euro</div>'+
-      '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
-      '<table class="table table-striped">';
-      table += '<thead><tr>';
-      for(let i in datiUtente[0]){        
-         table += '<th>col. '+letters[i]+' <input type="checkbox" '+
-         (conf.usd_cols.indexOf(i)>=0? 'checked' : '')+
-         'name="datiUtenteCol['+i+']"></th>';
+      var table = '';
+      
+      if(conf === false){
+        table += '<div>Seleziona le colonne per le quali vuoi applicare la conversione da dollaro a euro</div>'+
+        '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
+        '<table class="table table-striped">';
+        table += '<thead><tr>';
+        for(let i in datiUtente[0]){        
+           table += '<th>col. '+letters[i]+' <input type="checkbox" '+
+           (conf.usd_cols.indexOf(i)>=0? 'checked' : '')+
+           'name="datiUtenteCol['+i+']"></th>';
+        }
+      } else {
+        table += '<thead><tr>';
+        for(let i in datiUtente[0]){        
+           table += '<th>col. '+letters[i]+'</th>';
+        }
       }
       table += '</tr></thead>';
       for(let d of datiUtente) {
@@ -56,16 +76,24 @@
     // 4th column is how many euros is a dollar worth
     // 6th column is the date YYYY-MM-DD
     function getConversions(){
-      conversionData = {};
+      let conversionDataT = {};
       for(let c of conversionFiles){
         $.get(c, function(data){
           var dataArray = data.split("\n").map(function(line){ return line.split(","); });
           for(let d of dataArray){
             if(d[5].length != 10) continue;
-            conversionData[d[5]] = parseFloat(d[3]);
+            conversionDataT[d[5]] = parseFloat(d[3]);
           }
         });
       }
+      // ordered by date
+      conversionData = Object.keys(conversionDataT).sort().reduce(
+        (obj, key) => { 
+          obj[key] = conversionDataT[key]; 
+          return obj;
+        }, 
+        {}
+      );
     }
   });
 })(jQuery);
