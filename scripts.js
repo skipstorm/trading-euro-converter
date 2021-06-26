@@ -11,6 +11,8 @@
     var datiUtente;
     var letters = 'ancdefghijklmnopqrstuvwxyz'.split('');
     
+    getConversions();
+    
     $('#datiUtente').on('change', function(){
       makeUserPreview();
     });
@@ -58,6 +60,10 @@
       for(let c of conversionFiles){
         $.get(c, function(data){
           var dataArray = data.split("\n").map(function(line){ return line.split(","); });
+          for(let d of dataArray){
+            if(d[5].length != 10) continue;
+            conversionData[d[5]] = parseFloat(d[3]);
+          }
         });
       }
     }
