@@ -6,6 +6,8 @@
       }
     }
     var conf = configs['etoro'];
+    var conversionFiles = ['quot/2020.csv'];
+    var conversionData = {};
     var datiUtente;
     var letters = 'ancdefghijklmnopqrstuvwxyz'.split('');
     
@@ -21,8 +23,7 @@
       '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
       '<table class="table table-striped">';
       table += '<thead><tr>';
-      for(let i in datiUtente[0])
-        
+      for(let i in datiUtente[0]){        
          table += '<th>col. '+letters[i]+' <input type="checkbox" '+
          (conf.usd_cols.indexOf(i)>=0? 'checked' : '')+
          'name="datiUtenteCol['+i+']"></th>';
@@ -44,9 +45,21 @@
     function makeConversionPreview(){
       $('.conversionPreview').empty();
       var tempResult = datiUtente.map(function(d){
-//datiUtenteCol
+        //datiUtenteCol
       });
-      
+    }
+
+    // Uses banca d'italia csv format
+    // https://tassidicambio.bancaditalia.it/terzevalute-wf-web/rest/v1.0/dailyTimeSeries?startDate=2019-12-31&endDate=2020-12-31&&baseCurrencyIsoCode=EUR&currencyIsoCode=USD&lang=%7B%7D
+    // 4th column is how many euros is a dollar worth
+    // 6th column is the date YYYY-MM-DD
+    function getConversions(){
+      conversionData = {};
+      for(let c of conversionFiles){
+        $.get(c, function(data){
+          var dataArray = data.split("\n").map(function(line){ return line.split(","); });
+        });
+      }
     }
   });
 })(jQuery);
