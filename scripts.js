@@ -1,8 +1,17 @@
 (function($){
   $(document).ready(function(){
     var configs = {
+      // conversions are couples amount -> date as values in the same line might need conversions in different dates
+      
       'etoro': {
-        'usd_cols': [4,5]
+        'conversions': [
+          // Column index for the date -> column index for the value
+          // 9 open date
+          // 10 close date
+          [9, 3], // Amount
+          [9, 5], // Open rate
+          [10, 6] // Close rate
+        ]
       }
     }
     
@@ -33,28 +42,17 @@
       datiUtente = $('#datiUtente').val().split("\n").map(function(line){ return line.split("\t").slice(0, size)});
       $('.datiUtentePreview').empty();
       var table = '';
-      
-      if(conf === false){
-        table += '<div>Seleziona le colonne per le quali vuoi applicare la conversione da dollaro a euro</div>'+
-        '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
-        '<table class="table table-striped">';
-        table += '<thead><tr>';
-        for(let i in datiUtente[0]){        
-           table += '<th>col. '+letters[i]+' <input type="checkbox" '+
-           (conf.usd_cols.indexOf(i)>=0? 'checked' : '')+
-           'name="datiUtenteCol['+i+']"></th>';
-        }
-      } else {
-        table += '<thead><tr>';
-        for(let i in datiUtente[0]){        
-           table += '<th>col. '+letters[i]+'</th>';
-        }
+      table += '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
+      '<table class="table table-striped">';
+      table += '<thead><tr>';
+      for(let i in datiUtente[0]){        
+          table += '<th>col. '+letters[i]+'</th>';
       }
-      table += '</tr></thead>';
+      table += '</tr></thead><tbody>';
       for(let d of datiUtente) {
         table += '<tr><td>'+(d.join('</td><td>')+'</td></tr>');
       }
-      table += '</table>';
+      table += '</tbody></table>';
       
       $('.datiUtentePreview').append(table);
       var toStep2 = $('<button class="w-100 btn btn-primary btn-lg">Avanti</button>');
@@ -67,8 +65,30 @@
     function makeConversionPreview(){
       $('.conversionPreview').empty();
       var tempResult = datiUtente.map(function(d){
-        //datiUtenteCol
+        for(let c of conf.conversions) {
+          if(conversionData[c[0]]) {
+            d[c[1]] = '€ ' + (conversionData[c[0]] * d[c[1]]) + ' ($ '+d[c[1]]+')';
+          } else {
+            // Date not found
+            alert('valore per la data ' + c[0] + ' non trovato');
+          }
+        }
       });
+      
+      var table = '';
+      table += '<div>Questa è la tabella con i dati convertiti in euro, se va bene puoi scaricare il file.</div>'+
+      '<table class="table table-striped">';
+      table += '<thead><tr>';
+      for(let i in datiUtente[0]){        
+          table += '<th>col. '+letters[i]+'</th>';
+      }
+      table += '</tr></thead><tbody>';
+      for(let d of tempResult) {
+        table += '<tr><td>'+(d.join('</td><td>')+'</td></tr>');
+      }
+      table += '</tbody></table>';
+      
+      $('.conversionPreview').append(table);
     }
 
     // Uses banca d'italia csv format
