@@ -84,6 +84,7 @@
     }
 
     function makeConversionPreview() {
+      errors = [];
       $('.conversionPreview').empty();
       var tempResult = datiUtente.map(function (d) {
         if (d.join('') == '') {
