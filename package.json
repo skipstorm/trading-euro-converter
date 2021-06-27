@@ -1,0 +1,37 @@
+{
+  "name": "trading-euro-converter",
+  "version": "1.0.0",
+  "description": "Trading history converter from USD to EURO, optimized for eToro trading history",
+  "main": "index.html",
+  "dependencies": {
+    "browser-sync": "^2.26.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-iconfont": "10.0.3",
+    "gulp-inject": "^4.3.2",
+    "gulp-inject-partials": "^1.0.4",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sftp": "^0.1.5",
+    "gulp-sourcemaps": "^2.6.4",
+    "npm-run-parallel": "^0.5.0",
+    "through2": "^2.0.3",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skipstorm/trading-euro-converter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skipstorm/trading-euro-converter/issues"
+  },
+  "homepage": "https://github.com/skipstorm/trading-euro-converter#readme"
+}

@@ -70,6 +70,7 @@
     }
     
     function makeConversionPreview(){
+      console.log(conversionData, datiUtente); return;
       $('.conversionPreview').empty();
       var tempResult = datiUtente.map(function(d){
         for(let c of conf.conversions) {
