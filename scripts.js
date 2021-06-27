@@ -39,7 +39,7 @@
     }
     
     function makeUserPreview() {
-      var size = parseInt($('#datiUtenteN').val());
+      var size = parseInt(conf.col_num);
       $('.datiUtentePreview').empty();
       if($('#datiUtente').val() == '') {
         return;
@@ -60,6 +60,8 @@
       
       $('.datiUtentePreview').append(table);
       var toStep2 = $('<button class="w-100 btn btn-primary btn-lg">Avanti</button>');
+      
+      $('.datiUtentePreview').append(toStep2);
       $(toStep2).on('click', function(){
         makeConversionPreview();
         return false;
