@@ -4,6 +4,7 @@
       // conversions are couples amount -> date as values in the same line might need conversions in different dates
       
       'etoro': {
+        'col_num': 16,
         'conversions': [
           // Column index for the date -> column index for the value
           // 9 open date
@@ -39,8 +40,11 @@
     
     function makeUserPreview() {
       var size = parseInt($('#datiUtenteN').val());
-      datiUtente = $('#datiUtente').val().split("\n").map(function(line){ return line.split("\t").slice(0, size)});
       $('.datiUtentePreview').empty();
+      if($('#datiUtente').val() == '') {
+        return;
+      }
+      datiUtente = $('#datiUtente').val().split("\n").map(function(line){ return line.split("\t").slice(0, size)});
       var table = '';
       table += '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
       '<table class="table table-striped">';
