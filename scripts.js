@@ -45,6 +45,7 @@
         return;
       }
       datiUtente = $('#datiUtente').val().split("\n").map(function(line){ return line.split("\t").slice(0, size)});
+      console.log('datiUtente', datiUtente, size)
       var table = '';
       table += '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>'+
       '<table class="table table-striped">';
