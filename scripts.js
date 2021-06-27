@@ -59,7 +59,7 @@
       }
       var table = '';
       table += '<div>Verifica che i dati siano stati riconosciuti correttamente.</div>' +
-        '<table class="table table-striped">';
+        '<div style="max-height: 400px; overflow: auto;"><table class="table table-striped">';
       table += '<thead><tr>';
       for (let i of heading) {
         table += '<th>col. ' + i + '</th>';
@@ -71,7 +71,7 @@
       for (let d of datiUtente) {
         table += '<tr><td>' + (d.join('</td><td>') + '</td></tr>');
       }
-      table += '</tbody></table>';
+      table += '</tbody></table></div>';
 
       $('.datiUtentePreview').append(table);
       var toStep2 = $('<span class="w-100 btn btn-primary btn-lg">Avanti</span>');
@@ -104,7 +104,7 @@
 
       var table = '';
       table += '<div>Questa è la tabella con i dati convertiti in euro, se va bene puoi scaricare il file.</div>' +
-        '<table class="table table-striped">';
+        '<div style="max-height: 400px; overflow: auto;"><table class="table table-striped">';
       table += '<thead><tr>';
 
       for (let i of heading) {
@@ -114,7 +114,7 @@
       for (let d of tempResult) {
         table += '<tr><td>' + (d.join('</td><td>') + '</td></tr>');
       }
-      table += '</tbody></table>';
+      table += '</tbody></table></div>';
 
       $('.conversionPreview').append(table);
       for (let e of errors) {
