@@ -19,7 +19,7 @@
     }
 
     var conf = configs['etoro'];
-    var conversionFiles = ['quot/2019.csv', 'quot/2020.csv'];
+    var conversionFiles = ['quot/2019.csv', 'quot/2020.csv', 'quot/2021.csv'];
     var conversionData = {};
     var datiUtente;
     var heading;
