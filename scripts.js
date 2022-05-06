@@ -10,10 +10,18 @@
           // Column index for the date -> column index for the value
           // 9 open date
           // 10 close date
-          [9, 3, 'DD/MM/YYYY HH:mm'], // Amount
-          [9, 5, 'DD/MM/YYYY HH:mm'], // Open rate
-          [10, 6, 'DD/MM/YYYY HH:mm'], // Close rate
-          [10, 8, 'DD/MM/YYYY HH:mm'] // Profit
+          
+          // Etoro export format before 2021
+          // [9, 3, 'DD/MM/YYYY HH:mm'], // Amount
+          //[9, 5, 'DD/MM/YYYY HH:mm'], // Open rate
+          //[10, 6, 'DD/MM/YYYY HH:mm'], // Close rate
+          //[10, 8, 'DD/MM/YYYY HH:mm'] // Profit
+          
+          
+          [4, 2, 'DD/MM/YYYY HH:mm'], // Amount
+          [4, 9, 'DD/MM/YYYY HH:mm'], // Open rate
+          [5, 10, 'DD/MM/YYYY HH:mm'], // Close rate
+          [5, 8, 'DD/MM/YYYY HH:mm'] // Profit
         ]
       }
     }
