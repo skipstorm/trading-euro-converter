@@ -113,7 +113,7 @@
               errors.push('valore non convertito per la data ' + dateI + ' (cambio non trovato)');
             }
           }
-          previousDate = dateI;
+          previousDate = moment(d[c[0]], c[2]).format('YYYY-MM-DD');
         }
         return d;
       });
