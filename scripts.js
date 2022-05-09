@@ -98,6 +98,7 @@
         if (d.join('') == '') {
           return d;
         }
+        let prviousDate;
         let dateI;
         for (let c of conf.conversions) {
           dateI = moment(d[c[0]], c[2]).format('YYYY-MM-DD');
@@ -105,8 +106,14 @@
             d[c[1]] = '€ ' + parseFloat(conversionData[dateI] * d[c[1]]).toFixed(3) + ' ($ ' + d[c[1]] + ')';
           } else {
             // Date not found
-            errors.push('valore non convertito per la data ' + dateI + ' (cambio non trovato)');
+            if(dateI.day() == 0 && conversionData[previousDate]) {
+              errors.push('valore non convertito per la data ' + dateI + ' (domenica, utilizzo cambio di sabato');
+              d[c[1]] = '€ ' + parseFloat(conversionData[previousDate] * d[c[1]]).toFixed(3) + ' ($ ' + d[c[1]] + ')';
+            } else {
+              errors.push('valore non convertito per la data ' + dateI + ' (cambio non trovato)');
+            }
           }
+          previousDate = dateI;
         }
         return d;
       });
